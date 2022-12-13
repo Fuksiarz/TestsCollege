@@ -14,12 +14,13 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-      - name: Run
-        run: echo Add other actions to build
+      
       - name: Install Python
         uses: actions/setup-python@v2
         with:
           python-version: "3.11"
+      - name: Install seleniumbase
+        run: install seleniumbase
       - name: go back
         run : cd ..
       - name: RunAmazonCartTest
