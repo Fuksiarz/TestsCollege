@@ -20,7 +20,8 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: "3.11"
-        
+      - name: go back
+        run : cd ..
       - name: RunAmazonCartTest
         working-directory: ./3
         run: python test_checkout.py 
