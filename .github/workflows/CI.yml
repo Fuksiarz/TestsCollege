@@ -21,6 +21,9 @@ jobs:
         with:
           python-version: "3.11"
           
+      - name: go into test folder
+        run: cd /TAU/3/
+        
       - name: RunAmazonCartTest
         run: python test_checkout.py 
       
