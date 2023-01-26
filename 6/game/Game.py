@@ -1,4 +1,5 @@
 import random
+import time
 
 
 def createMap(A, B):
@@ -30,7 +31,6 @@ def createStartAndStop(x, A, B):
 
 
 def whereIsSAndW(x, A, B):
-
     # if A>=B:
     #     C=B
     #     D=A
@@ -54,8 +54,9 @@ def whereIsSAndW(x, A, B):
     return startX, startY, koniecX, koniecY
 
 
-def move(A, B, board, xs, ys, xw, yw):
+def move(A, B, board, xs, ys, xw, yw, ilosc):
     playerChoose = input("gdzie mam isc: ")
+    # playerChoose2 = input("grasz dalej?")
     match playerChoose:
         case "W":
             if xs == 0:
@@ -92,7 +93,7 @@ def move(A, B, board, xs, ys, xw, yw):
                 board[xs][ys] = 0
                 board[xs][ys - 1] = 'S'
         case "D":
-            if ys == A-1:
+            if ys == A - 1:
                 print("Nie mozna wyjsc za planszę!")
 
             elif board[xs][ys + 1] == 1:
@@ -107,23 +108,23 @@ def move(A, B, board, xs, ys, xw, yw):
         # for i in board:
         #     print(i)
     position = whereIsSAndW(board, A, B)
-    print(position)
+
     if position[0] == position[2] and position[1] == position[3]:
         print("Brawo, znalazłeś wyjście!")
         return 0
     else:
-        return (move(A, B, board, position[0], position[1], position[2], position[3]))
+        if ilosc > 0:
+            return move(A, B, board, position[0], position[1], position[2], position[3], ilosc)
 
 
 def createObstacles(x, A, B):
-
-    if A>B:
-        roznica=A-B
+    if A > B:
+        roznica = A - B
     else:
-        roznica= B-A
+        roznica = B - A
 
     for i in range(random.randint(3, lower(A, B) * 2)):
-        first = random.randint(0, B -1)
+        first = random.randint(0, B - 1)
         second = random.randint(0, A - 1)
 
         if x[first][second] != 'S' and x[first][second] != 'W':
@@ -135,11 +136,11 @@ def createObstacles(x, A, B):
 
 
 if __name__ == '__main__':
-    A = 6
-    B = 8
-
+    A = 5
+    B = 5
+    ilosc = 1000
     Z = createMap(A, B)
     start = createStartAndStop(Z, A, B)
     obs = createObstacles(start, A, B)
     position = whereIsSAndW(obs, A, B)
-    move(A, B, obs, position[0], position[1], position[2], position[3])
+    move(A, B, obs, position[0], position[1], position[2], position[3], ilosc)
